@@ -1,0 +1,37 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
+
+logging:
+  level:
+    dev.shvetsov: DEBUG
+    io.temporal: INFO
+    org.h2: DEBUG
+
+temporal:
+  connection:
+    target: 127.0.0.1:7233
+  namespace: default
+  workers:
+    - name: order-worker
+      taskQueue: order-queue
+      workflowImplementations:
+        - dev.shvetsov.infrastructure.temporal.OrderProcessingWorkflowImpl
+      activityImplementations:
+        - orderActivitiesImpl
