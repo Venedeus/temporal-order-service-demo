@@ -35,3 +35,30 @@ temporal:
         - dev.shvetsov.infrastructure.temporal.OrderProcessingWorkflowImpl
       activityImplementations:
         - orderActivitiesImpl
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: order-service
+      environment: development
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      type: w3c,b3
