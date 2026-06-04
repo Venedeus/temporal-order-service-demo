@@ -46,9 +46,14 @@ management:
     export:
       prometheus:
         enabled: true
+        step: 10s
     tags:
       application: order-service
       environment: development
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+        order.processing.duration: true
   endpoint:
     health:
       show-details: always
