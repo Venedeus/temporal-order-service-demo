@@ -1,6 +1,8 @@
 package dev.shvetsov.infrastructure.web;
 
 import io.micrometer.core.instrument.MeterRegistry;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/metrics")
+@Tag(name = "Metrics", description = "Endpoints for viewing application metrics")
 public class MetricsController {
   private final MeterRegistry meterRegistry;
 
@@ -17,6 +20,10 @@ public class MetricsController {
   }
 
   @GetMapping("/summary")
+  @Operation(
+      summary = "Get metrics summary",
+      description = "Returns a summary of all business and technical metrics"
+  )
   public Map<String, Object> getMetricsSummary() {
     Map<String, Object> metrics = new HashMap<>();
     metrics.put("orders_created", getMetricValue("orders.created.total"));

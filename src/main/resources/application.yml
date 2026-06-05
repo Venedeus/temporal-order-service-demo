@@ -67,3 +67,20 @@ management:
       probability: 1.0
     propagation:
       type: w3c,b3
+
+springdoc:
+  api-doc:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operationsSorter: method
+    tagsSorter: alpha
+    tryItOutEnabled: true
+    filter: true
+    displayDirectDuration: true
+  show-actuator: true
+  paths-to-match:
+    - /api/**
+    - /actuator/**
